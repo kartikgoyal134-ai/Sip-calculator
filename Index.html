@@ -1,0 +1,240 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>SIP Calculator | Smart Investment Planner</title>
+  <meta
+    name="description"
+    content="Calculate estimated SIP returns and plan your financial goals."
+  />
+  <link rel="stylesheet" href="style.css" />
+  <script src="script.js" defer></script>
+</head>
+<body>
+  <header class="site-header">
+    <a class="brand" href="#home" aria-label="SIP Smart home">
+      <span class="brand-icon">₹</span>
+      <span>SIP<span class="brand-light">Smart</span></span>
+    </a>
+
+    <nav class="main-nav" aria-label="Main navigation">
+      <a href="#home" class="nav-link active">Home</a>
+      <a href="#calculator" class="nav-link">Calculator</a>
+      <a href="#planner" class="nav-link">Goal Planner</a>
+      <a href="#learn" class="nav-link">Learn</a>
+    </nav>
+
+    <button id="themeToggle" class="theme-toggle" type="button" aria-label="Toggle dark mode">
+      ☾
+    </button>
+  </header>
+
+  <main>
+    <section id="home" class="page hero-section">
+      <div class="hero-content">
+        <p class="eyebrow">SMARTER MONEY HABITS</p>
+        <h1>Small steps today.<br /><span>Stronger goals tomorrow.</span></h1>
+        <p class="hero-description">
+          Estimate how your monthly SIP investments could grow over time
+          and plan your future goals with confidence.
+        </p>
+        <div class="hero-actions">
+          <a class="button button-primary" href="#calculator">Calculate SIP</a>
+          <a class="button button-secondary" href="#planner">Plan a Goal</a>
+        </div>
+        <p class="disclaimer">
+          This tool provides estimates only. Market returns are not guaranteed.
+        </p>
+      </div>
+
+      <div class="hero-card" aria-label="Example investment illustration">
+        <div class="hero-card-top">
+          <span>Investment growth</span>
+          <span class="growth-badge">Illustration</span>
+        </div>
+        <div class="hero-amount">₹10,000 <span>/ month</span></div>
+        <div class="hero-chart" aria-hidden="true">
+          <span style="height: 24%"></span>
+          <span style="height: 34%"></span>
+          <span style="height: 42%"></span>
+          <span style="height: 55%"></span>
+          <span style="height: 66%"></span>
+          <span style="height: 78%"></span>
+          <span style="height: 94%"></span>
+        </div>
+        <div class="chart-labels"><span>Start</span><span>Over time</span></div>
+        <p class="hero-card-note">Regular investing can help you work toward long-term goals.</p>
+      </div>
+    </section>
+
+    <section id="calculator" class="page section">
+      <div class="section-heading">
+        <p class="eyebrow">SIP CALCULATOR</p>
+        <h2>Estimate your investment growth</h2>
+        <p>Enter a monthly investment, expected annual return, and duration.</p>
+      </div>
+
+      <div class="calculator-layout">
+        <form id="sipForm" class="panel calculator-form">
+          <div class="form-group">
+            <label for="monthlyInvestment">Monthly investment (₹)</label>
+            <input id="monthlyInvestment" type="number" min="1" max="10000000" step="100" value="5000" required />
+          </div>
+
+          <div class="form-group">
+            <label for="annualReturn">Expected annual return (%)</label>
+            <input id="annualReturn" type="number" min="0" max="30" step="0.1" value="12" required />
+          </div>
+
+          <div class="form-group">
+            <label for="investmentYears">Investment period (years)</label>
+            <input id="investmentYears" type="number" min="1" max="50" step="1" value="10" required />
+          </div>
+
+          <button class="button button-primary full-width" type="submit">Calculate returns</button>
+          <p class="input-note">Use a reasonable estimate. Actual returns may be higher or lower.</p>
+        </form>
+
+        <div class="panel results-panel" aria-live="polite">
+          <p class="result-label">Estimated future value</p>
+          <h3 id="futureValue">₹0</h3>
+
+          <div class="result-breakdown">
+            <div>
+              <span>Total invested</span>
+              <strong id="totalInvested">₹0</strong>
+            </div>
+            <div>
+              <span>Estimated returns</span>
+              <strong id="estimatedReturns">₹0</strong>
+            </div>
+          </div>
+
+          <div class="result-bar" aria-label="Invested amount compared with estimated returns">
+            <span id="investedBar"></span>
+            <span id="returnsBar"></span>
+          </div>
+          <div class="bar-legend">
+            <span><i class="legend-dot invested-dot"></i> Invested</span>
+            <span><i class="legend-dot returns-dot"></i> Estimated returns</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="panel table-panel">
+        <div class="table-heading">
+          <div>
+            <h3>Year-by-year estimate</h3>
+            <p>Illustrative values based on the assumptions above.</p>
+          </div>
+        </div>
+        <div class="table-wrap">
+          <table>
+            <thead>
+              <tr>
+                <th>Year</th>
+                <th>Total invested</th>
+                <th>Estimated value</th>
+              </tr>
+            </thead>
+            <tbody id="yearlyTable">
+              <tr><td colspan="3">Enter your details to view the estimate.</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </section>
+
+    <section id="planner" class="page section">
+      <div class="section-heading">
+        <p class="eyebrow">GOAL PLANNER</p>
+        <h2>Plan a future goal</h2>
+        <p>Estimate the monthly SIP needed to work toward a target amount.</p>
+      </div>
+
+      <div class="planner-layout">
+        <form id="goalForm" class="panel">
+          <div class="form-group">
+            <label for="goalAmount">Target amount (₹)</label>
+            <input id="goalAmount" type="number" min="1" max="1000000000" step="1000" value="1000000" required />
+          </div>
+
+          <div class="form-group">
+            <label for="goalYears">Time to goal (years)</label>
+            <input id="goalYears" type="number" min="1" max="50" step="1" value="10" required />
+          </div>
+
+          <div class="form-group">
+            <label for="goalReturn">Expected annual return (%)</label>
+            <input id="goalReturn" type="number" min="0" max="30" step="0.1" value="12" required />
+          </div>
+
+          <button class="button button-primary full-width" type="submit">Estimate monthly SIP</button>
+        </form>
+
+        <div class="panel goal-result" aria-live="polite">
+          <p class="result-label">Estimated monthly SIP needed</p>
+          <h3 id="requiredSip">₹0</h3>
+          <p id="goalSummary">Enter your goal details to see an estimate.</p>
+          <p class="input-note">
+            This is a mathematical estimate, not a recommendation or guarantee.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <section id="learn" class="page section">
+      <div class="section-heading">
+        <p class="eyebrow">SIP BASICS</p>
+        <h2>Learn the basics</h2>
+        <p>A few simple points to understand before investing.</p>
+      </div>
+
+      <div class="learning-grid">
+        <article class="panel learning-card">
+          <span class="learning-number">01</span>
+          <h3>What is a SIP?</h3>
+          <p>A Systematic Investment Plan (SIP) lets you invest a fixed amount at regular intervals, often monthly, in a mutual fund.</p>
+        </article>
+
+        <article class="panel learning-card">
+          <span class="learning-number">02</span>
+          <h3>What is compounding?</h3>
+          <p>Compounding means potential returns can earn further returns over time. The actual result depends on investment performance.</p>
+        </article>
+
+        <article class="panel learning-card">
+          <span class="learning-number">03</span>
+          <h3>Is a SIP guaranteed?</h3>
+          <p>No. Mutual fund investments are subject to market risk. Returns can vary, and you may receive less than you invested.</p>
+        </article>
+      </div>
+
+      <div class="panel faq-panel">
+        <h3>Frequently asked questions</h3>
+
+        <details>
+          <summary>Can I change my monthly SIP amount?</summary>
+          <p>Many mutual fund plans allow you to modify, pause, or stop future instalments, subject to the fund's rules.</p>
+        </details>
+
+        <details>
+          <summary>Does this calculator predict exact returns?</summary>
+          <p>No. It uses the return rate entered by you to calculate an illustration. Actual market returns are not fixed.</p>
+        </details>
+
+        <details>
+          <summary>Is this website giving investment advice?</summary>
+          <p>No. It is an educational project and calculator. Consider your own circumstances and consult a qualified professional if needed.</p>
+        </details>
+      </div>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <p>© <span id="currentYear"></span> SIPSmart — Minor Project</p>
+    <p>Educational tool only. Not investment advice.</p>
+  </footer>
+</body>
+        </html>
